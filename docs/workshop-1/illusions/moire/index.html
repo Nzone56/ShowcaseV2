@@ -1,0 +1,77 @@
+<!doctype html><html lang=en-us dir=ltr><head><meta charset=utf-8><meta name=viewport content="width=device-width,initial-scale=1"><meta name=description content="Illusions - Moiré # Explicación # Patrones de interferencia que pueden producirse cuando se superpone un patrón reglado opaco con huecos transparentes sobre otro patrón similar. CODE let xspeed = 2.3; let yspeed = 2.8; let xdirection = 1; let ydirection = 1; function setup() { createCanvas(700, 700); x1 = width/2; y1 = height/2; n = width/10; d = 50; x2 = width/2; y2 = height/2; } function moire(x,y,d,n){ for( i = 0;i<n;i++){ circle(x, y, d*i); strokeWeight(10); noFill(); } } function txt(){ textFont('Georgia'); textSize(150); var w = textWidth(&#34;MOIRÉ&#34;); fill(0); fill(255); text(&#34;MOIRÉ&#34;, width/7."><meta name=theme-color content="#FFFFFF"><meta name=color-scheme content="light dark"><meta property="og:title" content><meta property="og:description" content="Illusions - Moiré # Explicación # Patrones de interferencia que pueden producirse cuando se superpone un patrón reglado opaco con huecos transparentes sobre otro patrón similar. CODE let xspeed = 2.3; let yspeed = 2.8; let xdirection = 1; let ydirection = 1; function setup() { createCanvas(700, 700); x1 = width/2; y1 = height/2; n = width/10; d = 50; x2 = width/2; y2 = height/2; } function moire(x,y,d,n){ for( i = 0;i<n;i++){ circle(x, y, d*i); strokeWeight(10); noFill(); } } function txt(){ textFont('Georgia'); textSize(150); var w = textWidth(&#34;MOIRÉ&#34;); fill(0); fill(255); text(&#34;MOIRÉ&#34;, width/7."><meta property="og:type" content="article"><meta property="og:url" content="https://nzone56.github.io/showcase/docs/workshop-1/illusions/moire/"><meta property="article:section" content="docs"><meta property="article:modified_time" content="2022-09-05T15:39:16-05:00"><title>Moire | Showcase Template</title><link rel=manifest href=/showcase/manifest.json><link rel=icon href=/showcase/favicon.png type=image/x-icon><link rel=stylesheet href=/showcase/book.min.ab46de3e725a6415339a37bba23a0067534a37289b063c9f8d011515a63097a8.css integrity="sha256-q0bePnJaZBUzmje7ojoAZ1NKNyibBjyfjQEVFaYwl6g=" crossorigin=anonymous><script defer src=/showcase/flexsearch.min.js></script>
+<script defer src=/showcase/en.search.min.19b2f1ec8155d5c346203d2d3ef45aa593a1381abde8be2f6c042442bfc48134.js integrity="sha256-GbLx7IFV1cNGID0tPvRapZOhOBq96L4vbAQkQr/EgTQ=" crossorigin=anonymous></script></head><body dir=ltr><input type=checkbox class="hidden toggle" id=menu-control>
+<input type=checkbox class="hidden toggle" id=toc-control><main class="container flex"><aside class=book-menu><div class=book-menu-content><nav><h2 class=book-brand><a class="flex align-center" href=/showcase/><span>Showcase Template</span></a></h2><div class=book-search><input type=text id=book-search-input placeholder=Search aria-label=Search maxlength=64 data-hotkeys=s/><div class="book-search-spinner hidden"></div><ul id=book-search-results></ul></div><ul><li><input type=checkbox id=section-cb5166b5972776a786c8f0abb960e1df class=toggle checked>
+<label for=section-cb5166b5972776a786c8f0abb960e1df class="flex justify-between"><a href=/showcase/docs/workshop-1/>Workshop 1</a></label><ul><li><a href=/showcase/docs/workshop-1/coloring/>Coloring</a></li><li><input type=checkbox id=section-51baf7cddf1b71f3a37400bd1ff1e877 class=toggle checked>
+<label for=section-51baf7cddf1b71f3a37400bd1ff1e877 class="flex justify-between"><a href=/showcase/docs/workshop-1/illusions/>Illusions</a></label><ul><li><a href=/showcase/docs/workshop-1/illusions/lilac-chaser/>Lilac Chaser</a></li><li><a href=/showcase/docs/workshop-1/illusions/moire/ class=active>Moire</a></li><li><a href=/showcase/docs/workshop-1/illusions/stepping/>Stepping</a></li></ul></li><li><a href=/showcase/docs/workshop-1/masking/>Masking</a></li></ul></li></ul></nav><script>(function(){var e=document.querySelector("aside .book-menu-content");addEventListener("beforeunload",function(){localStorage.setItem("menu.scrollTop",e.scrollTop)}),e.scrollTop=localStorage.getItem("menu.scrollTop")})()</script></div></aside><div class=book-page><header class=book-header><div class="flex align-center justify-between"><label for=menu-control><img src=/showcase/svg/menu.svg class=book-icon alt=Menu></label>
+<strong>Moire</strong>
+<label for=toc-control><img src=/showcase/svg/toc.svg class=book-icon alt="Table of Contents"></label></div><aside class="hidden clearfix"><nav id=TableOfContents><ul><li><a href=#illusions---moiré>Illusions - Moiré</a><ul><li><a href=#explicación>Explicación</a></li></ul></li></ul></nav></aside></header><article class=markdown><h1 id=illusions---moiré>Illusions - Moiré
+<a class=anchor href=#illusions---moir%c3%a9>#</a></h1><h2 id=explicación>Explicación
+<a class=anchor href=#explicaci%c3%b3n>#</a></h2><p>Patrones de interferencia que pueden producirse cuando se superpone un patrón reglado opaco con huecos transparentes sobre otro patrón similar.
+<details><summary>CODE</summary><div class=markdown-inner><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-js data-lang=js><span style=display:flex><span><span style=color:#66d9ef>let</span> <span style=color:#a6e22e>xspeed</span> <span style=color:#f92672>=</span> <span style=color:#ae81ff>2.3</span>;
+</span></span><span style=display:flex><span><span style=color:#66d9ef>let</span> <span style=color:#a6e22e>yspeed</span> <span style=color:#f92672>=</span> <span style=color:#ae81ff>2.8</span>;
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#66d9ef>let</span> <span style=color:#a6e22e>xdirection</span> <span style=color:#f92672>=</span> <span style=color:#ae81ff>1</span>;
+</span></span><span style=display:flex><span><span style=color:#66d9ef>let</span> <span style=color:#a6e22e>ydirection</span> <span style=color:#f92672>=</span> <span style=color:#ae81ff>1</span>;
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#66d9ef>function</span> <span style=color:#a6e22e>setup</span>() {
+</span></span><span style=display:flex><span>  <span style=color:#a6e22e>createCanvas</span>(<span style=color:#ae81ff>700</span>, <span style=color:#ae81ff>700</span>);
+</span></span><span style=display:flex><span>  <span style=color:#a6e22e>x1</span> <span style=color:#f92672>=</span> <span style=color:#a6e22e>width</span><span style=color:#f92672>/</span><span style=color:#ae81ff>2</span>;
+</span></span><span style=display:flex><span>  <span style=color:#a6e22e>y1</span> <span style=color:#f92672>=</span> <span style=color:#a6e22e>height</span><span style=color:#f92672>/</span><span style=color:#ae81ff>2</span>;
+</span></span><span style=display:flex><span>  <span style=color:#a6e22e>n</span> <span style=color:#f92672>=</span> <span style=color:#a6e22e>width</span><span style=color:#f92672>/</span><span style=color:#ae81ff>10</span>;
+</span></span><span style=display:flex><span>  <span style=color:#a6e22e>d</span> <span style=color:#f92672>=</span> <span style=color:#ae81ff>50</span>;
+</span></span><span style=display:flex><span>  
+</span></span><span style=display:flex><span>  <span style=color:#a6e22e>x2</span> <span style=color:#f92672>=</span> <span style=color:#a6e22e>width</span><span style=color:#f92672>/</span><span style=color:#ae81ff>2</span>;
+</span></span><span style=display:flex><span>  <span style=color:#a6e22e>y2</span> <span style=color:#f92672>=</span> <span style=color:#a6e22e>height</span><span style=color:#f92672>/</span><span style=color:#ae81ff>2</span>;
+</span></span><span style=display:flex><span>}
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#66d9ef>function</span> <span style=color:#a6e22e>moire</span>(<span style=color:#a6e22e>x</span>,<span style=color:#a6e22e>y</span>,<span style=color:#a6e22e>d</span>,<span style=color:#a6e22e>n</span>){
+</span></span><span style=display:flex><span>  <span style=color:#66d9ef>for</span>( <span style=color:#a6e22e>i</span> <span style=color:#f92672>=</span> <span style=color:#ae81ff>0</span>;<span style=color:#a6e22e>i</span><span style=color:#f92672>&lt;</span><span style=color:#a6e22e>n</span>;<span style=color:#a6e22e>i</span><span style=color:#f92672>++</span>){
+</span></span><span style=display:flex><span>    <span style=color:#a6e22e>circle</span>(<span style=color:#a6e22e>x</span>, <span style=color:#a6e22e>y</span>, <span style=color:#a6e22e>d</span><span style=color:#f92672>*</span><span style=color:#a6e22e>i</span>);
+</span></span><span style=display:flex><span>    <span style=color:#a6e22e>strokeWeight</span>(<span style=color:#ae81ff>10</span>);
+</span></span><span style=display:flex><span>    <span style=color:#a6e22e>noFill</span>();
+</span></span><span style=display:flex><span>  }
+</span></span><span style=display:flex><span>}
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#66d9ef>function</span> <span style=color:#a6e22e>txt</span>(){
+</span></span><span style=display:flex><span>  <span style=color:#a6e22e>textFont</span>(<span style=color:#e6db74>&#39;Georgia&#39;</span>);
+</span></span><span style=display:flex><span>  <span style=color:#a6e22e>textSize</span>(<span style=color:#ae81ff>150</span>);
+</span></span><span style=display:flex><span>  <span style=color:#66d9ef>var</span> <span style=color:#a6e22e>w</span> <span style=color:#f92672>=</span> <span style=color:#a6e22e>textWidth</span>(<span style=color:#e6db74>&#34;MOIRÉ&#34;</span>);
+</span></span><span style=display:flex><span>  <span style=color:#a6e22e>fill</span>(<span style=color:#ae81ff>0</span>);
+</span></span><span style=display:flex><span>  <span style=color:#a6e22e>fill</span>(<span style=color:#ae81ff>255</span>);
+</span></span><span style=display:flex><span>  <span style=color:#a6e22e>text</span>(<span style=color:#e6db74>&#34;MOIRÉ&#34;</span>, <span style=color:#a6e22e>width</span><span style=color:#f92672>/</span><span style=color:#ae81ff>7.5</span>, <span style=color:#a6e22e>height</span><span style=color:#f92672>/</span><span style=color:#ae81ff>1.75</span>);
+</span></span><span style=display:flex><span>}
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#66d9ef>function</span> <span style=color:#a6e22e>draw</span>() {
+</span></span><span style=display:flex><span>  <span style=color:#a6e22e>background</span>(<span style=color:#a6e22e>color</span>(<span style=color:#e6db74>&#34;rgb(235,0,0)&#34;</span>));
+</span></span><span style=display:flex><span>  <span style=color:#a6e22e>x2</span> <span style=color:#f92672>=</span> <span style=color:#a6e22e>x2</span> <span style=color:#f92672>+</span> <span style=color:#a6e22e>xspeed</span> <span style=color:#f92672>*</span> <span style=color:#a6e22e>xdirection</span>;
+</span></span><span style=display:flex><span>  <span style=color:#a6e22e>y2</span> <span style=color:#f92672>=</span> <span style=color:#a6e22e>y2</span> <span style=color:#f92672>+</span> <span style=color:#a6e22e>yspeed</span> <span style=color:#f92672>*</span> <span style=color:#a6e22e>ydirection</span>;
+</span></span><span style=display:flex><span>  <span style=color:#a6e22e>txt</span>()
+</span></span><span style=display:flex><span>  <span style=color:#66d9ef>if</span> (<span style=color:#a6e22e>x2</span> <span style=color:#f92672>&gt;</span> <span style=color:#a6e22e>width</span> <span style=color:#f92672>||</span> <span style=color:#a6e22e>x2</span> <span style=color:#f92672>&lt;</span> <span style=color:#ae81ff>0</span>) {
+</span></span><span style=display:flex><span>    <span style=color:#a6e22e>xdirection</span> <span style=color:#f92672>*=</span> <span style=color:#f92672>-</span><span style=color:#ae81ff>1</span>;
+</span></span><span style=display:flex><span>  }
+</span></span><span style=display:flex><span>  <span style=color:#66d9ef>if</span> (<span style=color:#a6e22e>y2</span> <span style=color:#f92672>&gt;</span> <span style=color:#a6e22e>height</span> <span style=color:#f92672>||</span> <span style=color:#a6e22e>y2</span> <span style=color:#f92672>&lt;</span> <span style=color:#ae81ff>0</span>) {
+</span></span><span style=display:flex><span>    <span style=color:#a6e22e>ydirection</span> <span style=color:#f92672>*=</span> <span style=color:#f92672>-</span><span style=color:#ae81ff>1</span>;
+</span></span><span style=display:flex><span>  }
+</span></span><span style=display:flex><span>  
+</span></span><span style=display:flex><span>  <span style=color:#a6e22e>m1</span> <span style=color:#f92672>=</span> <span style=color:#a6e22e>moire</span>(<span style=color:#a6e22e>x1</span>,<span style=color:#a6e22e>y1</span>,<span style=color:#a6e22e>d</span>,<span style=color:#a6e22e>n</span>);
+</span></span><span style=display:flex><span>  <span style=color:#a6e22e>m2</span> <span style=color:#f92672>=</span> <span style=color:#a6e22e>moire</span>(<span style=color:#a6e22e>x2</span>,<span style=color:#a6e22e>y2</span>,<span style=color:#a6e22e>d</span>,<span style=color:#a6e22e>n</span>);
+</span></span><span style=display:flex><span>}
+</span></span></code></pre></div></div></details><iframe id=moireillusion style=width:700px;height:700px srcdoc="
+        <!DOCTYPE html>
+        <html>
+          <head>
+            <script src=https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.4.2/p5.min.js></script>
+            <script src=https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.4.2/addons/p5.sound.min.js></script>
+            
+            
+            
+            
+            
+            <script src=/showcase/sketches/moireillusion.js></script>
+            <div id=histogram></div>
+          </head>
+          <body>
+          </body>
+        </html>
+      "></iframe></p></article><footer class=book-footer><div class="flex flex-wrap justify-between"><div><a class="flex align-center" href=https://github.com/Nzone56/showcase/commit/b7f07f3de3e8c658292169234a32860a7cd59d47 title='Last modified by SGman98 | September 5, 2022' target=_blank rel=noopener><img src=/showcase/svg/calendar.svg class=book-icon alt=Calendar>
+<span>September 5, 2022</span></a></div></div><script>(function(){function e(e){const t=window.getSelection(),n=document.createRange();n.selectNodeContents(e),t.removeAllRanges(),t.addRange(n)}document.querySelectorAll("pre code").forEach(t=>{t.addEventListener("click",function(){e(t.parentElement),navigator.clipboard&&navigator.clipboard.writeText(t.parentElement.textContent)})})})()</script></footer><div class=book-comments></div><label for=menu-control class="hidden book-menu-overlay"></label></div><aside class=book-toc><div class=book-toc-content><nav id=TableOfContents><ul><li><a href=#illusions---moiré>Illusions - Moiré</a><ul><li><a href=#explicación>Explicación</a></li></ul></li></ul></nav></div></aside></main></body></html>
