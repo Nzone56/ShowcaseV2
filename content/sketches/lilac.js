@@ -5,15 +5,18 @@ const DISTANCE = 200;
 
 function setup() {
   createCanvas(CANVAS_SIZE, CANVAS_SIZE);
-  frameRate(8);
+  frameRate(10);
+  
+  colorPicker = createColorPicker('#ee00ee');
+  colorPicker.position(0, height + 5);
 }
 
 function draw() {
-  drawingContext.filter = "blur(15px)";
+  drawingContext.filter = "blur(20px)";
 
-  background(210);
+  background(200);
   noStroke();
-  fill(255, 0, 255);
+  fill(colorPicker.color());
 
   for (let i = 0; i < CIRCLE_COUNT; i++) {
     const angle = (i / CIRCLE_COUNT) * TWO_PI;
