@@ -1,5 +1,5 @@
 function setup() {
-    createCanvas(600, 300);
+    createCanvas(640, 340);
     redVal = 0;
     redUp = true;
     blueVal = 0;
