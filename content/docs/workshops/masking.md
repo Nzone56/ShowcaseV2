@@ -12,7 +12,7 @@ One subtlety of this process is what to do along the edges of the image. For exa
 
 ## Results
 
-JS CODE 
+JS CODE
  {{< details title="IMAGE KERNEL CODE " open=false >}}
 
 
@@ -223,14 +223,10 @@ function draw() {
   image(edgeImg, 0, 0);
 }
 
-  
+
 ```
 {{< /details >}}
 
 Apply image kernel
 
-{{< p5-iframe sketch="/showcase/sketches/imageKernelWK.js" width="735" height="550" >}}
-
-
-
-
+{{< p5-iframe sketch="/showcase/sketches/imageKernelWK.js" lib1="https://cdn.plot.ly/plotly-2.14.0.min.js" width="735" height="550"  >}}

@@ -20,26 +20,26 @@ function preload() {
 
 function setup() {
   createCanvas(512, 512);
-  button = createButton("blackandwhite");
-  button.position(540, 150);
+  button = createButton("Black and White");
+  button.position(540, 150 + 400);
   button.mousePressed(blackandwhite);
   button = createButton("Blur");
-  button.position(540, 330);
+  button.position(540, 330 + 400);
   button.mousePressed(blur);
   button = createButton("Identity");
-  button.position(540, 360);
+  button.position(540, 360 + 400);
   button.mousePressed(identity);
   button = createButton("Outline");
-  button.position(540, 390);
+  button.position(540, 390 + 400);
   button.mousePressed(outline);
   button = createButton("Right Sobel");
-  button.position(540, 420);
+  button.position(540, 420 + 400);
   button.mousePressed(ritsobel);
   button = createButton("Emboss");
-  button.position(540, 450);
+  button.position(540, 450 + 400);
   button.mousePressed(emboss);
   button = createButton("Bottom Sobel");
-  button.position(540, 480);
+  button.position(540, 480 + 400);
   button.mousePressed(botsob);
   noLoop();
 }
@@ -200,4 +200,59 @@ function draw() {
 
   edgeImg.updatePixels();
   image(edgeImg, 0, 0);
+
+  let colors = extractColors(edgeImg);
+  createImageHistogram(colors[0], colors[1], colors[2]);
+}
+
+function extractColors(image) {
+    let red   = [];
+    let green = [];
+    let blue  = [];
+    let pixelsNumber = image.width * image.height * 4;
+    for(let i = 0; i < pixelsNumber; i += 4) {
+      red.push(image.pixels[i]);
+      green.push(image.pixels[i + 1]);
+      if (image.pixels[i + 2] != 0)
+        blue.push(image.pixels[i + 2]);
+    }
+    return [red, green, blue];
+  }
+
+
+function createImageHistogram(red, green, blue) {
+
+  let red_color = {
+    x: red,
+    name: 'red',
+    type: "histogram",
+    opacity: 0.5,
+    marker: {
+      color: "red"
+    },
+  };
+
+  let green_color = {
+    x: green,
+    name: 'green',
+    type: "histogram",
+    opacity: 0.5,
+    marker: {
+      color: "green"
+    },
+  };
+
+  let blue_color = {
+    x: blue,
+    name: 'blue',
+    type: "histogram",
+    opacity: 0.5,
+    marker: {
+      color: "blue"
+    },
+  };
+
+  let data = [red_color, green_color, blue_color];
+  let layout = {barmode: "overlay", };
+  Plotly.newPlot('histogram', data, layout, {displayModeBar: false});
 }
