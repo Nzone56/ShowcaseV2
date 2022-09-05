@@ -7,4 +7,4 @@ En la siguiente animación podemos ver la mezcla aditiva de colores, en la parte
 
 Intuitivamente podemos mezclar los colores, produciendo todas las posibilidades de gamas y tonos, pero adicionalmente podemos sustraer colores aplicando un filtro, que puede ser de color cyan que permite solo el paso de la luz verde y azul, el filtro magenta permite solo el paso de la luz roja y azul, y por último el filtro amarillo, que permite el paso de la luz roja y verde únicamente.
 
-{{< p5-iframe sketch="/showcase/sketches/mixingColors.js" width="600" height="300" >}}
+{{< p5-iframe sketch="/showcase/sketches/mixingColors.js" width="650" height="350" >}}
