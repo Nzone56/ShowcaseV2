@@ -4,11 +4,11 @@ bookCollapseSection: true
 
 # Workshop 1
 
-## Optical illusions [⏭]({{<relref "/docs/workshop 1/illusions" >}})
+## Optical illusions
 
 Study, implement and discuss possible applications of some known visual phenomena and optical illusions.
 
-## Coloring [⏭]({{<relref "/docs/workshop 1/coloring" >}})
+## Coloring
 
 Let rgb1 and rgb2 be two rgb colors. What rgb1 \* rgb2 would mean?
 
@@ -16,7 +16,7 @@ Let rgb1 and rgb2 be two rgb colors. What rgb1 \* rgb2 would mean?
 
 Develop a terrain visualization application.
 
-## Masking [⏭]({{<relref "/docs/workshop 1/masking" >}})
+## Masking
 
 Implement an image processing web app supporting different image kernels and supporting:
 
