@@ -1,15 +1,10 @@
 function setup() {
   createCanvas(640, 340);
   redUp = true;
-  blueVal = 0;
   blueUp = true;
-  greenVal = 0;
   greenUp = true;
-  cyanVal = 0;
   cyanUp = true;
-  magentaVal = 0;
   magentaUp = true
-  yellowVal = 0;
   yellowUp = true;
 
   redSlider = createSlider(0, 255, 60, 0);
@@ -20,12 +15,12 @@ function setup() {
 
 
   blueSlider = createSlider(0, 255, 60, 0);
-  blueSlider.position(50, 270);
+  blueSlider.position(50, 280);
   blueSlider.style('width', '80px');
   blueSlider.changed(() => {autoRun =false});
 
   greenSlider = createSlider(0, 255, 60, 0);
-  greenSlider.position(180, 270);
+  greenSlider.position(160, 280);
   greenSlider.style('width', '80px');  
   greenSlider.changed(() => {autoRun =false});
 
@@ -41,7 +36,7 @@ function setup() {
   magentaSlider.style('width', '80px');  
   magentaSlider.style('transform', 'rotate(270deg)');
   magentaSlider.style('-moz-transform', 'rotate(270deg)');
-magentaSlider.changed(() => {autoRun =false});
+  magentaSlider.changed(() => {autoRun =false});
 
   yellowSlider = createSlider(0, 255, 60, 0);
   yellowSlider.position(380, 270);
@@ -56,6 +51,10 @@ magentaSlider.changed(() => {autoRun =false});
 button = createButton('Auto run');
 button.position(500, 300);
 button.mousePressed(AutoRun);
+
+resetButton = createButton('Reset');
+resetButton.position(570, 300);
+resetButton.mousePressed(Reset);
 
 }
 
@@ -149,16 +148,17 @@ function draw() {
   textSize(15);
   text('Yellow', 410, 70);
  
-  
-  if(cyanUp){
-   cyanVal = cyanVal+0.5;
-   cyanUp = cyanVal > 255 ? false : true;
- }else{
-   cyanVal = cyanVal-0.5;
-   cyanUp = cyanVal < 0 ? true : false;
- }    
+  if(autoRun){      
+    if(cyanUp){ 
+     cyanSlider.value(cyanSlider.value()+0.5);
+     cyanUp = cyanSlider.value() >= 255 ? false : true;
+     }else{
+     cyanSlider.value(cyanSlider.value()-0.5);
+     cyanUp = cyanSlider.value() <= 0 ? true : false;
+    }
+  } 
   stroke(0,0,0)
-  fill(0,255,255, cyanVal);
+  fill(0,255,255, cyanSlider.value());
   beginShape();
   vertex(340, 100);
   vertex(350, 100);
@@ -166,14 +166,16 @@ function draw() {
   vertex(340, 180);
   endShape(CLOSE); 
   
-   if(magentaUp){
-   magentaVal = magentaVal+2;
-   magentaUp = magentaVal > 255 ? false : true;
- }else{
-   magentaVal = magentaVal-2;
-   magentaUp = magentaVal < 0 ? true : false;
- }   
-  fill(255,0,255, magentaVal);
+ if(autoRun){      
+    if(magentaUp){ 
+     magentaSlider.value(magentaSlider.value()+2);
+     magentaUp = magentaSlider.value() >= 255 ? false : true;
+     }else{
+     magentaSlider.value(magentaSlider.value()-2);
+     magentaUp = magentaSlider.value() <= 0 ? true : false;
+    }
+  }  
+  fill(255,0,255, magentaSlider.value());
   beginShape();
   vertex(380, 100);
   vertex(390, 100);
@@ -182,14 +184,16 @@ function draw() {
   endShape(CLOSE);
   
     
-  if(yellowUp){
-   yellowVal = yellowVal+1;
-   yellowUp = yellowVal > 255 ? false : true;
- }else{
-   yellowVal = yellowVal-1;
-   yellowUp = yellowVal < 0 ? true : false;
- } 
-  fill(255,255,0, yellowVal);
+ if(autoRun){      
+    if(yellowUp){ 
+     yellowSlider.value(yellowSlider.value()+1);
+     yellowUp = yellowSlider.value() >= 255 ? false : true;
+     }else{
+     yellowSlider.value(yellowSlider.value()-1);
+     yellowUp = yellowSlider.value() <= 0 ? true : false;
+    }
+  }  
+  fill(255,255,0, yellowSlider.value());
   beginShape();
   vertex(420, 100);
   vertex(430, 100);
@@ -197,16 +201,25 @@ function draw() {
   vertex(420, 180);
   endShape(CLOSE);
   
-  fill( redSlider.value()-cyanVal, greenSlider.value()-magentaVal, blueSlider.value()-yellowVal);  
+  fill( redSlider.value()-cyanSlider.value(), greenSlider.value()-magentaSlider.value(), blueSlider.value()-yellowSlider.value());  
   circle(520,150,120);  
   
 }
 
 function AutoRun(){
-if(autoRun){
-  autoRun = false;
+  if(autoRun){
+    autoRun = false;
+  }
+  else{
+    autoRun = true;
+  }
 }
-else{
-  autoRun = true;
-}
+function Reset(){
+redSlider.value(60)
+blueSlider.value(60)
+greenSlider.value(60)
+cyanSlider.value(60)
+magentaSlider.value(60)
+yellowSlider.value(60)
+autoRun = true;
 }
