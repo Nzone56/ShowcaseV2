@@ -135,19 +135,20 @@ function draw() {
   vertex(260, 155);   
   endShape(CLOSE);  
   
-  
+  rotate(radians(270));
   fill(0, 255, 255);
   textSize(15);
-  text('Cyan', 320, 70);
+  text('Cyan', -90,350);
   
   fill(255, 0, 255);
   textSize(15);
-  text('Magenta', 360, 210);
+  text('Magenta', -90, 390);
   
   fill(255, 255, 0);
   textSize(15);
-  text('Yellow', 410, 70);
+  text('Yellow', -90, 430);
  
+  rotate(radians(-270));
   if(autoRun){      
     if(cyanUp){ 
      cyanSlider.value(cyanSlider.value()+0.5);
@@ -161,9 +162,9 @@ function draw() {
   fill(0,255,255, cyanSlider.value());
   beginShape();
   vertex(340, 100);
-  vertex(350, 100);
-  vertex(350, 180);
-  vertex(340, 180);
+  vertex(360, 100);
+  vertex(360, 210);
+  vertex(340, 210);
   endShape(CLOSE); 
   
  if(autoRun){      
@@ -178,9 +179,9 @@ function draw() {
   fill(255,0,255, magentaSlider.value());
   beginShape();
   vertex(380, 100);
-  vertex(390, 100);
-  vertex(390, 180);
-  vertex(380, 180);
+  vertex(400, 100);
+  vertex(400, 210);
+  vertex(380, 210);
   endShape(CLOSE);
   
     
@@ -196,9 +197,9 @@ function draw() {
   fill(255,255,0, yellowSlider.value());
   beginShape();
   vertex(420, 100);
-  vertex(430, 100);
-  vertex(430, 180);
-  vertex(420, 180);
+  vertex(440, 100);
+  vertex(440, 210);
+  vertex(420, 210);
   endShape(CLOSE);
   
   fill( redSlider.value()-cyanSlider.value(), greenSlider.value()-magentaSlider.value(), blueSlider.value()-yellowSlider.value());  
@@ -207,12 +208,12 @@ function draw() {
 }
 
 function AutoRun(){
-  if(autoRun){
-    autoRun = false;
-  }
-  else{
-    autoRun = true;
-  }
+if(autoRun){
+  autoRun = false;
+}
+else{
+  autoRun = true;
+}
 }
 function Reset(){
 redSlider.value(60)
