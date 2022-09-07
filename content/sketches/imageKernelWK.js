@@ -1,258 +1,215 @@
-A = 0;
-B = 0;
-C = 0;
-D = 0;
-E = 1;
-F = 0;
-G = 0;
-H = 0;
-I = 0;
-
-kernel = [
-  [A, B, C],
-  [D, E, -F],
-  [G, H, I],
+let boxBlur = [
+  [1 / 9, 1 / 9, 1 / 9],
+  [1 / 9, 1 / 9, 1 / 9],
+  [1 / 9, 1 / 9, 1 / 9],
 ];
 
+let edgeKernel = [
+  [-1, -1, -1],
+  [-1, 8, -1],
+  [-1, -1, -1],
+];
+let sobelKernel = [
+  [1, 2, 1],
+  [0, 0, 0],
+  [-1, -2, -1],
+];
+let outlineKernel = [
+  [-5, 4, 0],
+  [0, 2, 0],
+  [0, -1, 0],
+];
+let embossKernel = [
+  [-2, -1, 0],
+  [-1, 1, 1],
+  [0, 1, 2],
+];
+let botSobelKernel = [
+  [-1, -2, -1],
+  [0, 0, 0],
+  [1, 2, 1],
+];
+let topSobelKernel = [
+  [1, 2, 1],
+  [0, 0, 0],
+  [-1, -2, -1],
+];
+
+let file;
+let img;
+let histogram;
+
 function preload() {
+  file = loadImage("/showcase/sketches/mandrill.png");
   img = loadImage("/showcase/sketches/mandrill.png");
 }
 
 function setup() {
-  createCanvas(512, 512);
-  button = createButton("Black and White");
-  button.position(540, 150 + 400);
-  button.mousePressed(blackandwhite);
-  button = createButton("Blur");
-  button.position(540, 330 + 400);
-  button.mousePressed(blur);
-  button = createButton("Identity");
-  button.position(540, 360 + 400);
-  button.mousePressed(identity);
-  button = createButton("Outline");
-  button.position(540, 390 + 400);
-  button.mousePressed(outline);
-  button = createButton("Right Sobel");
-  button.position(540, 420 + 400);
-  button.mousePressed(ritsobel);
-  button = createButton("Emboss");
-  button.position(540, 450 + 400);
-  button.mousePressed(emboss);
-  button = createButton("Bottom Sobel");
-  button.position(540, 480 + 400);
-  button.mousePressed(botsob);
-  noLoop();
-}
-function botsob() {
-  clear();
-  A = -1;
-  B = -2;
-  C = -1;
-  D = 0;
-  E = 0;
-  F = 0;
-  G = 1;
-  H = 2;
-  I = 1;
-  kernel = [
-    [A, B, C],
-    [D, E, -F],
-    [G, H, I],
-  ];
-  redraw();
-}
-function blackandwhite() {
-  clear();
-  A = 0;
-  B = 0;
-  C = 0;
-  D = 0;
-  E = 1;
-  F = 0;
-  G = 0;
-  H = 0;
-  I = 0;
-  kernel = [
-    [A, B, C],
-    [D, E, -F],
-    [G, H, I],
-  ];
-
-  redraw();
-}
-function outline() {
-  clear();
-  A = -5;
-  B = 4;
-  C = 0;
-  D = 0;
-  E = 2;
-  F = 0;
-  G = 0;
-  H = -1;
-  I = 0;
-  kernel = [
-    [A, B, C],
-    [D, E, -F],
-    [G, H, I],
-  ];
-  redraw();
-}
-function identity() {
-  clear();
-  A = 0;
-  B = 0;
-  C = 0;
-  D = 0;
-  E = 1;
-  F = 0;
-  G = 0;
-  H = 0;
-  I = 0;
-  kernel = [
-    [A, B, C],
-    [D, E, -F],
-    [G, H, I],
-  ];
-  redraw();
-}
-
-function blur() {
-  clear();
-  A = 0.0625;
-  B = 0.125;
-  C = 0.0625;
-  D = 0.125;
-  E = 0.25;
-  F = 0.125;
-  G = 0.0625;
-  H = 0.125;
-  I = 0.0625;
-  kernel = [
-    [A, B, C],
-    [D, E, -F],
-    [G, H, I],
-  ];
-  redraw();
-}
-
-function ritsobel() {
-  clear();
-  A = -32;
-  B = 50;
-  C = 45;
-  D = -81;
-  E = 63;
-  F = 68;
-  G = -68;
-  H = 59;
-  I = 59;
-  kernel = [
-    [A, B, C],
-    [D, E, -F],
-    [G, H, I],
-  ];
-  redraw();
-}
-
-function emboss() {
-  clear();
-  A = -1.8;
-  B = -1;
-  C = 0;
-  D = -1;
-  E = 1.5;
-  F = 1.5;
-  G = 0.1;
-  H = 1.5;
-  I = 2.5;
-  kernel = [
-    [A, B, C],
-    [D, E, -F],
-    [G, H, I],
-  ];
-  redraw();
+  createCanvas(700, 900);
+  background(255);
+  pixelDensity(1);
+    
 }
 
 function draw() {
-  image(img, 0, 0);
+  img.resize(0, 600);
+  file.resize(0, 600);
+  image(img, 0, 0, img.width, img.height);
+}
 
-  edgeImg = createImage(img.width, img.height);
+function calculateConvolution(x, y, kernel, kernelSize) {
+  let r = 0.0;
+  let g = 0.0;
+  let b = 0.0;
 
-  edgeImg.loadPixels();
+  for (let i = 0; i < kernelSize; i++) {
+    for (let j = 0; j < kernelSize; j++) {
+      let location = (x + i + img.width * (y + j)) * 4;
 
-  for (let x = 1; x < img.width - 1; x++) {
-    for (let y = 1; y < img.height - 1; y++) {
-      let sum = 0;
+      location = constrain(location, 0, img.pixels.length - 1);
 
-      for (kx = -1; kx <= 1; kx++) {
-        for (ky = -1; ky <= 1; ky++) {
-          let xpos = x + kx;
-          let ypos = y + ky;
-          let pos = (y + ky) * img.width + (x + kx);
-          let val = red(img.get(xpos, ypos));
-          sum += kernel[ky + 1][kx + 1] * val;
-        }
-      }
-      edgeImg.set(x, y, color(sum, sum, sum));
+      r += img.pixels[location] * kernel[i][j];
+      g += img.pixels[location + 1] * kernel[i][j];
+      b += img.pixels[location + 2] * kernel[i][j];
     }
   }
 
-  edgeImg.updatePixels();
-  image(edgeImg, 0, 0);
-
-  let colors = extractColors(edgeImg);
-  createImageHistogram(colors[0], colors[1], colors[2]);
+  return {
+    r: constrain(r, 0, 255),
+    g: constrain(g, 0, 255),
+    b: constrain(b, 0, 255),
+  };
 }
 
 function extractColors(image) {
-    let red   = [];
-    let green = [];
-    let blue  = [];
-    let pixelsNumber = image.width * image.height * 4;
-    for(let i = 0; i < pixelsNumber; i += 4) {
-      red.push(image.pixels[i]);
-      green.push(image.pixels[i + 1]);
-      if (image.pixels[i + 2] != 0)
-        blue.push(image.pixels[i + 2]);
-    }
-    return [red, green, blue];
+  let red = [];
+  let green = [];
+  let blue = [];
+  let pixelsNumber = image.width * image.height * 4;
+  for (let i = 0; i < pixelsNumber; i += 4) {
+    red.push(image.pixels[i]);
+    green.push(image.pixels[i + 1]);
+    if (image.pixels[i + 2] != 0) blue.push(image.pixels[i + 2]);
   }
-
+  return [red, green, blue];
+}
 
 function createImageHistogram(red, green, blue) {
-
   let red_color = {
     x: red,
-    name: 'red',
+    name: "red",
     type: "histogram",
     opacity: 0.5,
     marker: {
-      color: "red"
+      color: "red",
     },
   };
 
   let green_color = {
     x: green,
-    name: 'green',
+    name: "green",
     type: "histogram",
     opacity: 0.5,
     marker: {
-      color: "green"
+      color: "green",
     },
   };
 
   let blue_color = {
     x: blue,
-    name: 'blue',
+    name: "blue",
     type: "histogram",
     opacity: 0.5,
     marker: {
-      color: "blue"
+      color: "blue",
     },
   };
 
   let data = [red_color, green_color, blue_color];
-  let layout = {barmode: "overlay", };
-  Plotly.newPlot('histogram', data, layout, {displayModeBar: false});
+  let layout = { barmode: "overlay" };
+  Plotly.newPlot("histogram", data, layout, { displayModeBar: false });
+}
+
+function convolveImage(kernel, kernelSize) {
+  img.copy(file, 0, 0, file.width, file.height, 0, 0, file.width, file.height);
+
+  img.loadPixels();
+
+  for (let x = 1; x < img.width - 1; x++) {
+    for (let y = 1; y < img.height - 1; y++) {
+      let newPixel = calculateConvolution(x, y, kernel, kernelSize);
+      let loc = (x + y * img.width) * 4;
+
+      img.pixels[loc] = newPixel.r;
+      img.pixels[loc + 1] = newPixel.g;
+      img.pixels[loc + 2] = newPixel.b;
+      img.pixels[loc + 3] = alpha(color(newPixel.r, newPixel.g, newPixel.b));
+    }
+  }
+
+  stroke(300, 100, 80);
+  img.updatePixels();
+  let colors = extractColors(img);
+  createImageHistogram(colors[0], colors[1], colors[2]);
+}
+
+function changeBrigness(changeFlag) {
+  img.loadPixels();
+
+  for (let x = 0; x < img.width; x++) {
+    for (let y = 0; y < img.height; y++) {
+      let loc = (x + y * img.width) * 4;
+      if (changeFlag) {
+        img.pixels[loc] = constrain(img.pixels[loc] / 1.1, 0, 255);
+        img.pixels[loc + 1] = constrain(img.pixels[loc + 1] / 1.1, 0, 255);
+        img.pixels[loc + 2] = constrain(img.pixels[loc + 2] / 1.1, 0, 255);
+      } else {
+        img.pixels[loc] = constrain(img.pixels[loc] * 1.1, 0, 255);
+        img.pixels[loc + 1] = constrain(img.pixels[loc + 1] * 1.1, 0, 255);
+        img.pixels[loc + 2] = constrain(img.pixels[loc + 2] * 1.1, 0, 255);
+      }
+    }
+  }
+
+  img.updatePixels();
+  let colors = extractColors(img);
+  createImageHistogram(colors[0], colors[1], colors[2]);
+}
+
+function resetImage() {
+   img.copy(file, 0, 0, file.width, file.height, 0, 0, file.width, file.height);
+   let colors = extractColors(img);
+   createImageHistogram(colors[0], colors[1], colors[2]);
+}
+
+function keyPressed() {
+  switch (key) {
+    case "1":
+      convolveImage(boxBlur, 3);
+      break;
+    case "2":
+      convolveImage(outlineKernel, 3);
+      break;
+    case "3":
+      convolveImage(edgeKernel, 3);
+      break;
+    case "4":
+      convolveImage(embossKernel, 3);
+      break;
+    case "5":
+      convolveImage(botSobelKernel, 3);
+      break;
+    case "6":
+      convolveImage(topSobelKernel, 3);
+      break;
+    case "r":
+      resetImage();
+      break;
+    case "-":
+      changeBrigness(true);
+      break;
+    case "+":
+      changeBrigness(false);
+      break;
+  }
 }
