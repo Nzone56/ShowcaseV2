@@ -390,4 +390,4 @@ APLLY KERNEL IMAGES
 
 
 
-{{< p5-iframe sketch="/showcase/sketches/imageKernelWK.js" lib1="https://cdn.plot.ly/plotly-2.14.0.min.js" width="735" height="1400"  >}}
+{{< p5-iframe sketch="/showcase/sketches/kernel.js" lib1="https://cdn.plot.ly/plotly-2.14.0.min.js" width="735" height="1400"  >}}
