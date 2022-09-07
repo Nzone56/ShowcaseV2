@@ -2,10 +2,10 @@
 
 ## Explicación
 
-El color es la impresión producida por un tono de luz en los órganos visuales, es decir se trata de una percepción visual.
+El color es la impresión producida por un tono de luz en los órganos visuales, se trata de un fenómeno físico-químico donde cada color depende de la longitud de onda.
 En la siguiente animación podemos ver la mezcla aditiva de colores, en la parte izquierda, y la mezcla substractiva de colores en la parte derecha.
 
-Intuitivamente podemos mezclar los colores, produciendo todas las posibilidades de gamas y tonos, pero adicionalmente podemos sustraer colores aplicando un filtro, que puede ser de color cyan que permite solo el paso de la luz verde y azul, el filtro magenta permite solo el paso de la luz roja y azul, y por último el filtro amarillo, que permite el paso de la luz roja y verde únicamente.
+Intuitivamente podemos realizar la mezcla de los colores mediante la cantidad de luz perteneciente al espectro R(red), G(green), B(blue), produciendo todas las posible gamas y tonos, pero adicionalmente podemos sustraer colores aplicando un filtro, que se gradua mediante transparencia y que puede ser de color cyan que permite solo el paso de la luz verde y azul, el filtro magenta permite solo el paso de la luz roja y azul, y por último el filtro amarillo, que permite el paso de la luz roja y verde únicamente.
 
 {{< details title="CODE" open=false >}}
 ```js
