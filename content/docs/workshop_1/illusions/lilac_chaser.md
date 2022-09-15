@@ -78,3 +78,13 @@ En esta ilusión se pueden observar 3 cosas:
   > por mucho tiempo el cerebro comienza a ignorar aquella información que no
   > sea necesaria, en este caso los discos están borrosos y fuera del punto de
   > enfoque, por lo que el cerebro los ignora.
+
+{{<hint info>}}
+
+Al usar el metodo `filter()` de p5 para aplicar el efecto de desenfoque en cada
+uno de los frames, se puede notar que el `frameRate` baja considerablemente,
+por este motivo se optó por usar el `drawingContext` para aplicar el filtro,
+este provee un filtro que usa directamente el canvas de html5 y por ende no
+afecta el `frameRate` tanto.
+
+{{</hint>}}
