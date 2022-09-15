@@ -3,37 +3,47 @@ title: Introduction
 type: docs
 ---
 
-# Showcase Template
+# Showcase
 
-Welcome to the [gohugo](https://gohugo.io/) template to create rich content [academic reports](https://www.wordy.com/writers-workshop/writing-an-academic-report/) having [p5.js](https://p5js.org/) sketches.
+Esto es un `showcase` para la materia de Computación Visual de la Universidad
+Nacional de Colombia realizado usando [Hugo](https://gohugo.io/) y
+[p5.js](https://p5js.org/).
+
+En este espacio se pueden encontrar varios ejemplos y talleres realizados en
+la materia.
 
 ## Hacking
 
 Install the [gohugo](https://gohugo.io/) [static site generator](https://jamstack.org/generators/) then:
 
 ```sh
-$git clone https://github.com/VisualComputing/showcase
-$cd showcase
-$git submodule update --init --recursive
-$hugo server -D --disableFastRender
+$ git clone https://github.com/Nzone56/showcase.git
+$ cd showcase
+$ git submodule update --init --recursive
+$ hugo server -D --disableFastRender
 ```
 
-Deploy with `$git push` after redefined `baseURL` in `config.toml` which should point to your actual public remote.
+## Our Team 💻
 
-### Remarks
+| Name                               | Email                    |                   Github                    |
+| ---------------------------------- | ------------------------ | :-----------------------------------------: |
+| Diego Alejandro Irreño Torres      | dirreno@unal.edu.co      |    [dirreno](https://github.com/dirreno)    |
+| Julian Andres Pereira Plata        | jpereirap@unal.edu.co    |    [Nzone56](https://github.com/Nzone56)    |
+| Luiggi Alexander Alvarez Velasquez | luaalvarezve@unal.edu.co | [Darkluiggi](https://github.com/Darkluiggi) |
+| Daniel Santiago Mendoza Morales    | dmendozam@unal.edu.co    |  [dmendozam](https://github.com/dmendozam)  |
+| Sebastian Garnica Quiroz           | sgarnicaq@unal.edu.co    |    [SGman98](https://github.com/SGman98)    |
+| Sonny Ernesto Niño Ramirez         | snino@unal.edu.co        |    [SonnyNR](https://github.com/SonnyNR)    |
 
-{{< hint info >}}
-If you renamed the repo, say to `newreponame`, don't forget to update all url references of the markdown and js file sources, to reflect that change, i.e., look within all [content folder](https://github.com/VisualComputing/showcase/tree/main/content) files for `showcase` occurrences and replace them by `newreponame`.
-{{< /hint >}}
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
 
-{{< hint info >}}
-If you forked the repo don't forget to activate the [actions](https://github.com/VisualComputing/showcase/actions).
-{{< /hint >}}
+<div style="text-align: right">
+Facultad de Ingeniería <br>
+Universidad Nacional de Colombia <br>
+2022-2
 
-{{< hint info >}}
-Don't forget to select the `gh-pages` branch as the one to serve your site from at the [pages section of your repo configuration page](https://docs.github.com/en/pages/getting-started-with-github-pages/configuring-a-publishing-source-for-your-github-pages-site), if it is no so by default.
-{{< /hint >}}
-
-{{< hint info >}}
-The **showcase** template uses the [hugo-book](https://github.com/alex-shpak/hugo-book) theme by default. Check the [hugo themes site](https://themes.gohugo.io/) if you wish to add other ones.
-{{< /hint >}}
+</div>
