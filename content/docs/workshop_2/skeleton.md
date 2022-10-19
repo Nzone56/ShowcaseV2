@@ -3,9 +3,9 @@
 Allows the visualization of a 3d model of a skeleton with its individual parts as separate .obj files.
 
 Possible applications:
-    * Medical image analysis
-    * Position animation
-    * Anatomical atlas
+- Medical image analysis
+- Position animation
+- Anatomical atlas
 
 {{< p5-iframe sketch="/showcase/sketches/skeleton.js"  width="800" height="1600"  >}}
 
