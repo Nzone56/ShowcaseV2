@@ -11,17 +11,17 @@ let spine;
 let tibia;
 
 function preload() {
-  skull = loadModel('body parts/Skull.obj',true);
-  spine = loadModel('body parts/Spine.obj',true);
-  clavicle = loadModel('body parts/Clavivle.obj',true);
-  humerus = loadModel('body parts/Humerus.obj',true);
-  radius = loadModel('body parts/Radius.obj',true);
-  hand = loadModel('body parts/Hand.obj',true);
-  rib = loadModel('body parts/Rib.obj',true);
-  illium = loadModel('body parts/Illium.obj',true);
-  femur = loadModel('body parts/Femur.obj',true);
-  tibia = loadModel('body parts/Tibia.obj',true);
-  feet = loadModel('body parts/Feet.obj',true);
+  skull = loadModel('body/Skull.obj',true);
+  spine = loadModel('body/Spine.obj',true);
+  clavicle = loadModel('body/Clavivle.obj',true);
+  humerus = loadModel('body/Humerus.obj',true);
+  radius = loadModel('body/Radius.obj',true);
+  hand = loadModel('body/Hand.obj',true);
+  rib = loadModel('body/Rib.obj',true);
+  illium = loadModel('body/Illium.obj',true);
+  femur = loadModel('body/Femur.obj',true);
+  tibia = loadModel('body/Tibia.obj',true);
+  feet = loadModel('body/Feet.obj',true);
 
 }
 
