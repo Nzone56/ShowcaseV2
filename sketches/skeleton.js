@@ -11,17 +11,17 @@ let spine;
 let tibia;
 
 function preload() {
-  skull = loadModel('body/Skull.obj',true);
-  spine = loadModel('body/Spine.obj',true);
-  clavicle = loadModel('body/Clavivle.obj',true);
-  humerus = loadModel('body/Humerus.obj',true);
-  radius = loadModel('body/Radius.obj',true);
-  hand = loadModel('body/Hand.obj',true);
-  rib = loadModel('body/Rib.obj',true);
-  illium = loadModel('body/Illium.obj',true);
-  femur = loadModel('body/Femur.obj',true);
-  tibia = loadModel('body/Tibia.obj',true);
-  feet = loadModel('body/Feet.obj',true);
+  skull = loadModel('/showcase/sketches/body/Skull.obj',true);
+  spine = loadModel('/showcase/sketches/body/Spine.obj',true);
+  clavicle = loadModel('/showcase/sketches/body/Clavivle.obj',true);
+  humerus = loadModel('/showcase/sketches/body/Humerus.obj',true);
+  radius = loadModel('/showcase/sketches/body/Radius.obj',true);
+  hand = loadModel('/showcase/sketches/body/Hand.obj',true);
+  rib = loadModel('/showcase/sketches/body/Rib.obj',true);
+  illium = loadModel('/showcase/sketches/body/Illium.obj',true);
+  femur = loadModel('/showcase/sketches/body/Femur.obj',true);
+  tibia = loadModel('/showcase/sketches/body/Tibia.obj',true);
+  feet = loadModel('/showcase/sketches/body/Feet.obj',true);
 
 }
 
