@@ -91,10 +91,15 @@ function paintFace(face, x, y, z, rotX, rotY, rotZ) {
 }
 
 function scramble() {
+  let moves = [];
   for (let i = 0; i < 20; i++) {
     let move = MOVES[floor(random(0, MOVES.length))];
     if (KEY_MAP[move]) KEY_MAP[move]();
+    moves.push(move);
   }
+  print(moves);
+
+  document.getElementById("moves").innerHTML = moves.join(" ");
 }
 
 function initPos() {
@@ -117,10 +122,6 @@ function createUI() {
 
   let button_size = 30;
   let spacing = 10;
-
-  // create 3 headers for the columns
-  // clockwise, counter-clockwise, double
-  // use emoji for text
 
   createDiv("🔃")
     .position(width + 20, 150)
@@ -159,6 +160,14 @@ function createUI() {
     button.style("font-weight", "bold");
     button.style("text-align", "center");
   });
+
+  // text for the scramble moves
+  createDiv("")
+    // position bottom with white letters
+    .position(20, height - 40)
+    .style("color", "white")
+    .style("font-size", "20px")
+    .id("moves");
 }
 
 
