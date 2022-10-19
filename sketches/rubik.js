@@ -57,36 +57,110 @@ function setup() {
   easycam.setDistanceMin(200);
   easycam.setDistanceMax(500);
 
-  const scrambleButton = createButton("Scramble");
-  scrambleButton.mousePressed(scramble);
-  scrambleButton.position(10, 0);
-
-  const resetButton = createButton("Reset");
-  resetButton.mousePressed(initPos);
-  resetButton.position(80, 0);
-
-  let button_size = 50;
-
-  MOVES.forEach((move, i) => {
-    let button = createButton(move);
-    button.mousePressed(KEY_MAP[move]);
-    button.position(button_size * (i % 3), button_size * floor(i / 3) + 60);
-  });
-
+  createUI();
 }
 
 // eslint-disable-next-line no-unused-vars
 function draw() {
   background(0);
+  strokeWeight(3);
+
   translate((-SIZE * 3) / 2, (-SIZE * 3) / 2, (SIZE * 3) / 2);
+
   paintFace(up, 0, 0, -SIZE * 3, PI / 2, 0, 0);
   paintFace(down, 0, SIZE * 3, 0, -PI / 2, 0, 0);
   paintFace(right, SIZE * 3, 0, 0, 0, PI / 2, 0);
   paintFace(left, 0, 0, -SIZE * 3, 0, -PI / 2, 0);
   paintFace(front, 0, 0, 0, 0, 0, 0);
   paintFace(back, SIZE * 3, 0, -SIZE * 3, 0, PI, 0);
-
 }
+
+function paintFace(face, x, y, z, rotX, rotY, rotZ) {
+  push();
+  translate(x, y, z);
+  rotateX(rotX);
+  rotateY(rotY);
+  rotateZ(rotZ);
+  for (let i = 0; i < 3; i++) {
+    for (let j = 0; j < 3; j++) {
+      fill(COLOR_MAP[face[i][j]]);
+      rect(i * SIZE, j * SIZE, SIZE, SIZE);
+    }
+  }
+  pop();
+}
+
+function scramble() {
+  for (let i = 0; i < 20; i++) {
+    let move = MOVES[floor(random(0, MOVES.length))];
+    if (KEY_MAP[move]) KEY_MAP[move]();
+  }
+}
+
+function initPos() {
+  up = new Array(3).fill(1).map(() => new Array(3).fill(1));
+  down = new Array(3).fill(2).map(() => new Array(3).fill(2));
+  right = new Array(3).fill(3).map(() => new Array(3).fill(3));
+  left = new Array(3).fill(4).map(() => new Array(3).fill(4));
+  front = new Array(3).fill(5).map(() => new Array(3).fill(5));
+  back = new Array(3).fill(6).map(() => new Array(3).fill(6));
+}
+
+function createUI() {
+  createButton("Scramble")
+    .mousePressed(scramble)
+    .position(width + 20, 20);
+
+  createButton("Reset")
+    .mousePressed(initPos)
+    .position(width + 20, 60);
+
+  let button_size = 30;
+  let spacing = 10;
+
+  // create 3 headers for the columns
+  // clockwise, counter-clockwise, double
+  // use emoji for text
+
+  createDiv("🔃")
+    .position(width + 20, 150)
+    .style("font-size", "20px");
+
+  createDiv("🔄️")
+    .position(width + 20 + button_size + spacing, 150)
+    .style("font-size", "20px");
+
+  createDiv("2️⃣")
+    .position(width + 20 + (button_size + spacing) * 2, 150)
+    .style("font-size", "20px");
+
+
+  MOVES.forEach((move, i) => {
+    let color = [0, 0, 0];
+    if (move.includes("U")) color = COLOR_MAP[1];
+    if (move.includes("D")) color = COLOR_MAP[2];
+    if (move.includes("R")) color = COLOR_MAP[3];
+    if (move.includes("L")) color = COLOR_MAP[4];
+    if (move.includes("F")) color = COLOR_MAP[5];
+    if (move.includes("B")) color = COLOR_MAP[6];
+
+    createButton(move)
+      .mousePressed(KEY_MAP[move])
+      .position(
+        10 + width + spacing + (i % 3) * (button_size + spacing),
+        180 + spacing + floor(i / 3) * (button_size + spacing),
+      )
+      .size(button_size, button_size)
+      .style("background-color", `rgb(${color[0]}, ${color[1]}, ${color[2]})`);
+  });
+
+  selectAll("button").forEach((button) => {
+    button.style("font-size", "12pt");
+    button.style("font-weight", "bold");
+    button.style("text-align", "center");
+  });
+}
+
 
 function turnFace(face, n) {
   let temp;
@@ -202,35 +276,4 @@ function turnFace(face, n) {
   face[1][2] = face[2][1];
   face[2][1] = face[1][0];
   face[1][0] = temp;
-}
-
-function paintFace(face, x, y, z, rotX, rotY, rotZ) {
-  push();
-  translate(x, y, z);
-  rotateX(rotX);
-  rotateY(rotY);
-  rotateZ(rotZ);
-  for (let i = 0; i < 3; i++) {
-    for (let j = 0; j < 3; j++) {
-      fill(COLOR_MAP[face[i][j]]);
-      rect(i * SIZE, j * SIZE, SIZE, SIZE);
-    }
-  }
-  pop();
-}
-
-function scramble() {
-  for (let i = 0; i < 20; i++) {
-    let move = MOVES[floor(random(0, MOVES.length))];
-    if (KEY_MAP[move]) KEY_MAP[move]();
-  }
-}
-
-function initPos() {
-  up = new Array(3).fill(1).map(() => new Array(3).fill(1));
-  down = new Array(3).fill(2).map(() => new Array(3).fill(2));
-  right = new Array(3).fill(3).map(() => new Array(3).fill(3));
-  left = new Array(3).fill(4).map(() => new Array(3).fill(4));
-  front = new Array(3).fill(5).map(() => new Array(3).fill(5));
-  back = new Array(3).fill(6).map(() => new Array(3).fill(6));
 }
