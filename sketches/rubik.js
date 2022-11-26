@@ -52,9 +52,9 @@ function setup() {
 
   easycam = createEasyCam();
   easycam.rotateY(PI / 4);
-  easycam.rotateX(PI / 8);
-  easycam.setDistance(250);
-  easycam.setDistanceMin(200);
+  easycam.rotateX(PI / 5);
+  easycam.setDistance(500);
+  easycam.setDistanceMin(300);
   easycam.setDistanceMax(500);
 
   createUI();
@@ -73,6 +73,29 @@ function draw() {
   paintFace(left, 0, 0, -SIZE * 3, 0, -PI / 2, 0);
   paintFace(front, 0, 0, 0, 0, 0, 0);
   paintFace(back, SIZE * 3, 0, -SIZE * 3, 0, PI, 0);
+
+  pos = easycam.getPosition();
+  dist = easycam.getDistance();
+
+  error = map(dist, 200, 500, 0.5, 0.4);
+
+  x = Math.round((pos[0] / dist) * 100) / 100;
+  y = Math.round((pos[1] / dist) * 100) / 100;
+  z = Math.round((pos[2] / dist) * 100) / 100;
+
+  facing_green = z >= 0 + error && z <= 1;
+  facing_blue = z >= -1 && z <= 0 - error;
+  facing_orange = x >= -1 && x <= 0 - error;
+  facing_red = x >= 0 + error && x <= 1;
+  facing_white = y >= -1 && y <= 0 - error;
+  facing_yellow = y >= 0 + error && y <= 1;
+
+  !facing_green && paintFace(front, 0, 0, SIZE * 4, 0, 0, 0);
+  !facing_blue && paintFace(back, SIZE * 3, 0, -SIZE * 7, 0, PI, 0);
+  !facing_orange && paintFace(left, -SIZE * 4, 0, -SIZE * 3, 0, -PI / 2, 0);
+  !facing_red && paintFace(right, SIZE * 7, 0, 0, 0, PI / 2, 0);
+  !facing_white && paintFace(up, 0, -SIZE * 4, -SIZE * 3, PI / 2, 0, 0);
+  !facing_yellow && paintFace(down, 0, SIZE * 7, 0, -PI / 2, 0, 0);
 }
 
 function paintFace(face, x, y, z, rotX, rotY, rotZ) {
