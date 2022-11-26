@@ -134,7 +134,7 @@ function draw() {
 ```
 
 {{</details>}}
-{{<p5-iframe sketch="/showcase/sketches/ascii_video.js" width="630" height="630">}}
+{{<p5-iframe sketch="/showcase/sketches/ascii_art.js" width="630" height="630">}}
 
 ## GUI
 
@@ -148,13 +148,20 @@ The slider is for the scaling of the image.
 
 ## Characters
 
-Ñ@#W$9876543210?!abc;:+=,.\_
+```
+'Ñ@#W$9876543210?!abc;:+=,._ '
+```
 
 This is the order of characters used for the brightness of each pixel.
 
 > It may be interpreted as brightest to darkest, or darkest to brightest, depending on the background vs foreground colors.
 
-> The last character is a space
+> The last character is a space representing an empty pixel in the ascii art.
+
+## Pixelation
+
+The pixelation mode is the simplest one, it just maps the pixels of the image to the pixels of the canvas.
+It doesn't have spatial coherence so there is some loss in the contour of the image.
 
 ## Brightness
 

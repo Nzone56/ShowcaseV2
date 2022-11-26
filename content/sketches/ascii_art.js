@@ -104,9 +104,9 @@ function setup() {
   modeSelector.position(10, height - 40);
   modeSelector.option("original");
   modeSelector.option("pixelated");
+  modeSelector.option("BW");
   modeSelector.option("colored ascii");
   modeSelector.option("ascii");
-  modeSelector.option("BW");
   modeSelector.selected("ascii");
 
   modeSelector.changed(() => {
