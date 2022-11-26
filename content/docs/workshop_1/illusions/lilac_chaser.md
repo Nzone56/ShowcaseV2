@@ -58,7 +58,7 @@ function draw() {
 
 {{</details>}}
 
-{{<p5-iframe sketch="/showcase/sketches/lilac.js" width="530" height="530">}}
+{{<p5-iframe sketch="/showcase/sketches/lilac.js" width="500" height="500">}}
 
 # Explicación
 

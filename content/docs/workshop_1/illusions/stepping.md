@@ -63,4 +63,4 @@ function setup() {
     
   }
 {{< /details >}}
-{{< p5-iframe sketch="/showcase/sketches/steppingIllusion.js" width="820" height="430" >}}
+{{< p5-iframe sketch="/showcase/sketches/steppingIllusion.js" width="800" height="400" >}}

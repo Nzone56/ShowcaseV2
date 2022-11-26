@@ -6,14 +6,14 @@ function setup() {
   frameRate(10);
 
   colorPicker = createColorPicker("#ee00ee");
-  colorPicker.position(10, height - 25);
+  colorPicker.position(10, height - 40);
 
   circleCountSlider = createSlider(12, 20, 12);
-  circleCountSlider.position(width - 100, height - 20);
+  circleCountSlider.position(width - 110, height - 30);
   circleCountSlider.style("width", "100px");
 
   blurToggle = createButton("Blur");
-  blurToggle.position(width - 30, 10);
+  blurToggle.position(width - 40, 10);
   blurToggle.mousePressed(() => (blur = !blur));
 }
 

@@ -143,4 +143,4 @@ function setup() {
     
   }
 {{< /details >}}
-{{< p5-iframe sketch="/showcase/sketches/mixingColors.js" width="650" height="350" >}}
+{{< p5-iframe sketch="/showcase/sketches/mixingColors.js" width="640" height="340" >}}
