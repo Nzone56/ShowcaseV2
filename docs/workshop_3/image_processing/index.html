@@ -1,0 +1,146 @@
+<!doctype html><html lang=en-us dir=ltr><head><meta charset=utf-8><meta name=viewport content="width=device-width,initial-scale=1"><meta name=description content="Image Processing # Exercise # Implement an image / video processing app supporting different masks, including other kernel sizes different than 3x3, and:
+A region-of-interest base tool to selectively apply a given mask.Hint: circular regions around the mouse pointer are handy and quite simple to implement by means of glsl distance. A magnifier tool. Requires a bit of research. For instance, look for it in shadertoy. Integrate luma and other coloring brightness tools."><meta name=theme-color content="#FFFFFF"><meta name=color-scheme content="light dark"><meta property="og:title" content><meta property="og:description" content="Image Processing # Exercise # Implement an image / video processing app supporting different masks, including other kernel sizes different than 3x3, and:
+A region-of-interest base tool to selectively apply a given mask.Hint: circular regions around the mouse pointer are handy and quite simple to implement by means of glsl distance. A magnifier tool. Requires a bit of research. For instance, look for it in shadertoy. Integrate luma and other coloring brightness tools."><meta property="og:type" content="article"><meta property="og:url" content="https://nzone56.github.io/showcase/docs/workshop_3/image_processing/"><meta property="article:section" content="docs"><meta property="article:modified_time" content="2022-11-27T18:35:30-05:00"><title>Image Processing | Showcase Template</title><link rel=manifest href=/showcase/manifest.json><link rel=icon href=/showcase/favicon.png type=image/x-icon><link rel=stylesheet href=/showcase/book.min.ab46de3e725a6415339a37bba23a0067534a37289b063c9f8d011515a63097a8.css integrity="sha256-q0bePnJaZBUzmje7ojoAZ1NKNyibBjyfjQEVFaYwl6g=" crossorigin=anonymous><script defer src=/showcase/flexsearch.min.js></script>
+<script defer src=/showcase/en.search.min.c256f3947184004a0cf6cca89597552071ee9ebfdcaf074a175e1f9e42dd3a1c.js integrity="sha256-wlbzlHGEAEoM9syolZdVIHHunr/crwdKF14fnkLdOhw=" crossorigin=anonymous></script></head><body dir=ltr><input type=checkbox class="hidden toggle" id=menu-control>
+<input type=checkbox class="hidden toggle" id=toc-control><main class="container flex"><aside class=book-menu><div class=book-menu-content><nav><h2 class=book-brand><a class="flex align-center" href=/showcase/><span>Showcase Template</span></a></h2><div class=book-search><input type=text id=book-search-input placeholder=Search aria-label=Search maxlength=64 data-hotkeys=s/><div class="book-search-spinner hidden"></div><ul id=book-search-results></ul></div><ul><li><input type=checkbox id=section-cd2464cb2ffa627a5abce0ba10877719 class=toggle>
+<label for=section-cd2464cb2ffa627a5abce0ba10877719 class="flex justify-between"><a href=/showcase/docs/workshop_1/>Workshop 1</a></label><ul><li><input type=checkbox id=section-0683b1f50e4407b7fd7c65fc1bc6152f class=toggle>
+<label for=section-0683b1f50e4407b7fd7c65fc1bc6152f class="flex justify-between"><a href=/showcase/docs/workshop_1/illusions/>Illusions</a></label><ul><li><a href=/showcase/docs/workshop_1/illusions/coloring/>Coloring</a></li><li><a href=/showcase/docs/workshop_1/illusions/lilac_chaser/>Lilac Chaser</a></li><li><a href=/showcase/docs/workshop_1/illusions/moire/>Moire</a></li><li><a href=/showcase/docs/workshop_1/illusions/stepping/>Stepping</a></li></ul></li><li><a href=/showcase/docs/workshop_1/masking/>Masking</a></li><li><a href=/showcase/docs/workshop_1/terrain_visualization/>Terrain Visualization</a></li></ul></li><li><input type=checkbox id=section-8cfef4981081163adc93553d45d4bdc3 class=toggle>
+<label for=section-8cfef4981081163adc93553d45d4bdc3 class="flex justify-between"><a href=/showcase/docs/workshop_2/>Workshop 2</a></label><ul><li><a href=/showcase/docs/workshop_2/Bresenhams-line-algorithm-rasterization/>Bresenham'S Line Algorithm (Rasterization)</a></li><li><a href=/showcase/docs/workshop_2/rubik/>Rubik</a></li><li><a href=/showcase/docs/workshop_2/skeleton/>Skeleton</a></li></ul></li><li><input type=checkbox id=section-3f80a2c8f1e761861ca26c53ecc27b7e class=toggle checked>
+<label for=section-3f80a2c8f1e761861ca26c53ecc27b7e class="flex justify-between"><a href=/showcase/docs/workshop_3/>Workshop 3</a></label><ul><li><a href=/showcase/docs/workshop_3/ascii_art/>Ascii Art</a></li><li><a href=/showcase/docs/workshop_3/image_processing/ class=active>Image Processing</a></li></ul></li></ul></nav><script>(function(){var e=document.querySelector("aside .book-menu-content");addEventListener("beforeunload",function(){localStorage.setItem("menu.scrollTop",e.scrollTop)}),e.scrollTop=localStorage.getItem("menu.scrollTop")})()</script></div></aside><div class=book-page><header class=book-header><div class="flex align-center justify-between"><label for=menu-control><img src=/showcase/svg/menu.svg class=book-icon alt=Menu></label>
+<strong>Image Processing</strong>
+<label for=toc-control><img src=/showcase/svg/toc.svg class=book-icon alt="Table of Contents"></label></div><aside class="hidden clearfix"><nav id=TableOfContents><ul><li><a href=#image-processing>Image Processing</a><ul><li><a href=#kernel>Kernel</a></li><li><a href=#convolution>Convolution</a></li><li><a href=#kernels>Kernels</a></li><li><a href=#results>Results</a></li></ul></li></ul></nav></aside></header><article class=markdown><h1 id=image-processing>Image Processing
+<a class=anchor href=#image-processing>#</a></h1><blockquote class="book-hint info"><h2 id=exercise>Exercise
+<a class=anchor href=#exercise>#</a></h2><p>Implement an image / video processing app supporting different masks, including other kernel sizes different than 3x3, and:</p><ul><li>A region-of-interest base tool to selectively apply a given mask.Hint: circular regions around the mouse pointer are handy and quite simple to implement by means of glsl distance.</li><li>A magnifier tool. Requires a bit of research. For instance, look for it in shadertoy.</li><li>Integrate luma and other coloring brightness tools.</li></ul><p>What other shader tools would you implement?</p></blockquote><h2 id=kernel>Kernel
+<a class=anchor href=#kernel>#</a></h2><p>In image processing, a kernel, convolution matrix, or mask is a small matrix used for blurring, sharpening, embossing, edge detection, and more. This is accomplished by doing a convolution between the kernel and an image.</p><h2 id=convolution>Convolution
+<a class=anchor href=#convolution>#</a></h2><p>Convolution is the process of adding each element of the image to its local neighbors, weighted by the kernel. This is related to a form of mathematical convolution. The matrix operation being performed—convolution—is not traditional matrix multiplication, despite being similarly denoted by *.</p><p>For each 3x3 block of pixels in the original image , we multiply each pixel by the corresponding entry of the kernel and then take the sum. That sum becomes a new pixel in the result image.</p><p>One subtlety of this process is what to do along the edges of the image. For example, the top left corner of the input image only has three neighbors. One way to fix this is to extend the edge values out by one in the original image while keeping our new image the same size.</p><h2 id=kernels>Kernels
+<a class=anchor href=#kernels>#</a></h2><details><summary>KERNELS</summary><div class=markdown-inner><p><strong>BOX BLUR:</strong></p><link rel=stylesheet href=/showcase/katex/katex.min.css><script defer src=/showcase/katex/katex.min.js></script>
+<script defer src=/showcase/katex/auto-render.min.js onload=renderMathInElement(document.body)></script><span>
+\( \frac{1}{9}
+\begin{bmatrix}
+1 & 1 & 1\\
+1 & 1 & 1\\
+1 & 1 & 1
+\end{bmatrix}
+\)</span><p><strong>SHARPEN KERNEL:</strong></p><span>\(
+\begin{bmatrix}
+0 & -1 & 0\\
+-1 & 5 & -1\\
+0 & -1 & 0
+\end{bmatrix}
+\)</span><p><strong>OUTLINE KERNEL:</strong></p><span>\(
+\begin{bmatrix}
+-1 & -1 & -1\\
+-1 & 8 & -1\\
+-1 & -1 & -1
+\end{bmatrix}
+\)</span><p><strong>EMBOSS KERNEL:</strong></p><span>\(
+\begin{bmatrix}
+-2 & -1 & 0\\
+-1 & 1 & 1\\
+0 & 1 & 2
+\end{bmatrix}
+\)</span><p><strong>EDGE KERNEL:</strong></p><span>\( \begin{bmatrix}
+-1 & -2 & -1\\
+-1 & 8 & -1\\
+-1 & -4 & -1
+\end{bmatrix}
+\)</span></div></details><h2 id=results>Results
+<a class=anchor href=#results>#</a></h2><details><summary>KERNEL</summary><div class=markdown-inner><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-js data-lang=js><span style=display:flex><span><span style=color:#a6e22e>vec4</span> <span style=color:#a6e22e>applyKernel</span>(){
+</span></span><span style=display:flex><span>  <span style=color:#a6e22e>vec2</span> <span style=color:#a6e22e>tc0</span> <span style=color:#f92672>=</span> <span style=color:#a6e22e>texcoords2</span> <span style=color:#f92672>+</span> <span style=color:#a6e22e>vec2</span>(<span style=color:#f92672>-</span><span style=color:#a6e22e>texOffset</span>.<span style=color:#a6e22e>s</span>, <span style=color:#f92672>-</span><span style=color:#a6e22e>texOffset</span>.<span style=color:#a6e22e>t</span>);
+</span></span><span style=display:flex><span>  <span style=color:#a6e22e>vec2</span> <span style=color:#a6e22e>tc1</span> <span style=color:#f92672>=</span> <span style=color:#a6e22e>texcoords2</span> <span style=color:#f92672>+</span> <span style=color:#a6e22e>vec2</span>(         <span style=color:#ae81ff>0.0</span>, <span style=color:#f92672>-</span><span style=color:#a6e22e>texOffset</span>.<span style=color:#a6e22e>t</span>);
+</span></span><span style=display:flex><span>  <span style=color:#a6e22e>vec2</span> <span style=color:#a6e22e>tc2</span> <span style=color:#f92672>=</span> <span style=color:#a6e22e>texcoords2</span> <span style=color:#f92672>+</span> <span style=color:#a6e22e>vec2</span>(<span style=color:#f92672>+</span><span style=color:#a6e22e>texOffset</span>.<span style=color:#a6e22e>s</span>, <span style=color:#f92672>-</span><span style=color:#a6e22e>texOffset</span>.<span style=color:#a6e22e>t</span>);
+</span></span><span style=display:flex><span>  <span style=color:#a6e22e>vec2</span> <span style=color:#a6e22e>tc3</span> <span style=color:#f92672>=</span> <span style=color:#a6e22e>texcoords2</span> <span style=color:#f92672>+</span> <span style=color:#a6e22e>vec2</span>(<span style=color:#f92672>-</span><span style=color:#a6e22e>texOffset</span>.<span style=color:#a6e22e>s</span>,          <span style=color:#ae81ff>0.0</span>);
+</span></span><span style=display:flex><span>  <span style=color:#a6e22e>vec2</span> <span style=color:#a6e22e>tc4</span> <span style=color:#f92672>=</span> <span style=color:#a6e22e>texcoords2</span> <span style=color:#f92672>+</span> <span style=color:#a6e22e>vec2</span>(         <span style=color:#ae81ff>0.0</span>,          <span style=color:#ae81ff>0.0</span>);
+</span></span><span style=display:flex><span>  <span style=color:#a6e22e>vec2</span> <span style=color:#a6e22e>tc5</span> <span style=color:#f92672>=</span> <span style=color:#a6e22e>texcoords2</span> <span style=color:#f92672>+</span> <span style=color:#a6e22e>vec2</span>(<span style=color:#f92672>+</span><span style=color:#a6e22e>texOffset</span>.<span style=color:#a6e22e>s</span>,          <span style=color:#ae81ff>0.0</span>);
+</span></span><span style=display:flex><span>  <span style=color:#a6e22e>vec2</span> <span style=color:#a6e22e>tc6</span> <span style=color:#f92672>=</span> <span style=color:#a6e22e>texcoords2</span> <span style=color:#f92672>+</span> <span style=color:#a6e22e>vec2</span>(<span style=color:#f92672>-</span><span style=color:#a6e22e>texOffset</span>.<span style=color:#a6e22e>s</span>, <span style=color:#f92672>+</span><span style=color:#a6e22e>texOffset</span>.<span style=color:#a6e22e>t</span>);
+</span></span><span style=display:flex><span>  <span style=color:#a6e22e>vec2</span> <span style=color:#a6e22e>tc7</span> <span style=color:#f92672>=</span> <span style=color:#a6e22e>texcoords2</span> <span style=color:#f92672>+</span> <span style=color:#a6e22e>vec2</span>(         <span style=color:#ae81ff>0.0</span>, <span style=color:#f92672>+</span><span style=color:#a6e22e>texOffset</span>.<span style=color:#a6e22e>t</span>);
+</span></span><span style=display:flex><span>  <span style=color:#a6e22e>vec2</span> <span style=color:#a6e22e>tc8</span> <span style=color:#f92672>=</span> <span style=color:#a6e22e>texcoords2</span> <span style=color:#f92672>+</span> <span style=color:#a6e22e>vec2</span>(<span style=color:#f92672>+</span><span style=color:#a6e22e>texOffset</span>.<span style=color:#a6e22e>s</span>, <span style=color:#f92672>+</span><span style=color:#a6e22e>texOffset</span>.<span style=color:#a6e22e>t</span>);
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>  <span style=color:#a6e22e>vec4</span> <span style=color:#a6e22e>rgba</span>[<span style=color:#ae81ff>9</span>];
+</span></span><span style=display:flex><span>  <span style=color:#a6e22e>rgba</span>[<span style=color:#ae81ff>0</span>] <span style=color:#f92672>=</span> <span style=color:#a6e22e>texture2D</span>(<span style=color:#a6e22e>texture</span>, <span style=color:#a6e22e>tc0</span>);
+</span></span><span style=display:flex><span>  <span style=color:#a6e22e>rgba</span>[<span style=color:#ae81ff>1</span>] <span style=color:#f92672>=</span> <span style=color:#a6e22e>texture2D</span>(<span style=color:#a6e22e>texture</span>, <span style=color:#a6e22e>tc1</span>);
+</span></span><span style=display:flex><span>  <span style=color:#a6e22e>rgba</span>[<span style=color:#ae81ff>2</span>] <span style=color:#f92672>=</span> <span style=color:#a6e22e>texture2D</span>(<span style=color:#a6e22e>texture</span>, <span style=color:#a6e22e>tc2</span>);
+</span></span><span style=display:flex><span>  <span style=color:#a6e22e>rgba</span>[<span style=color:#ae81ff>3</span>] <span style=color:#f92672>=</span> <span style=color:#a6e22e>texture2D</span>(<span style=color:#a6e22e>texture</span>, <span style=color:#a6e22e>tc3</span>);
+</span></span><span style=display:flex><span>  <span style=color:#a6e22e>rgba</span>[<span style=color:#ae81ff>4</span>] <span style=color:#f92672>=</span> <span style=color:#a6e22e>texture2D</span>(<span style=color:#a6e22e>texture</span>, <span style=color:#a6e22e>tc4</span>);
+</span></span><span style=display:flex><span>  <span style=color:#a6e22e>rgba</span>[<span style=color:#ae81ff>5</span>] <span style=color:#f92672>=</span> <span style=color:#a6e22e>texture2D</span>(<span style=color:#a6e22e>texture</span>, <span style=color:#a6e22e>tc5</span>);
+</span></span><span style=display:flex><span>  <span style=color:#a6e22e>rgba</span>[<span style=color:#ae81ff>6</span>] <span style=color:#f92672>=</span> <span style=color:#a6e22e>texture2D</span>(<span style=color:#a6e22e>texture</span>, <span style=color:#a6e22e>tc6</span>);
+</span></span><span style=display:flex><span>  <span style=color:#a6e22e>rgba</span>[<span style=color:#ae81ff>7</span>] <span style=color:#f92672>=</span> <span style=color:#a6e22e>texture2D</span>(<span style=color:#a6e22e>texture</span>, <span style=color:#a6e22e>tc7</span>);
+</span></span><span style=display:flex><span>  <span style=color:#a6e22e>rgba</span>[<span style=color:#ae81ff>8</span>] <span style=color:#f92672>=</span> <span style=color:#a6e22e>texture2D</span>(<span style=color:#a6e22e>texture</span>, <span style=color:#a6e22e>tc8</span>);
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>  <span style=color:#a6e22e>vec4</span> <span style=color:#a6e22e>convolution</span>;
+</span></span><span style=display:flex><span>  <span style=color:#66d9ef>for</span> (<span style=color:#66d9ef>int</span> <span style=color:#a6e22e>i</span> <span style=color:#f92672>=</span> <span style=color:#ae81ff>0</span>; <span style=color:#a6e22e>i</span> <span style=color:#f92672>&lt;</span> <span style=color:#ae81ff>9</span>; <span style=color:#a6e22e>i</span><span style=color:#f92672>++</span>) {
+</span></span><span style=display:flex><span>    <span style=color:#a6e22e>convolution</span> <span style=color:#f92672>+=</span> <span style=color:#a6e22e>rgba</span>[<span style=color:#a6e22e>i</span>]<span style=color:#f92672>*</span><span style=color:#a6e22e>kernel</span>[<span style=color:#a6e22e>i</span>];
+</span></span><span style=display:flex><span>  }
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>  <span style=color:#a6e22e>convolution</span> <span style=color:#f92672>=</span> <span style=color:#a6e22e>vec4</span>(<span style=color:#a6e22e>convolution</span>.<span style=color:#a6e22e>rgb</span>, <span style=color:#ae81ff>1.0</span>);
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>  <span style=color:#66d9ef>return</span> <span style=color:#a6e22e>convolution</span>;
+</span></span><span style=display:flex><span>}
+</span></span></code></pre></div></div></details><p><details><summary>MAGNIFIER - REGION</summary><div class=markdown-inner><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-js data-lang=js><span style=display:flex><span><span style=color:#66d9ef>if</span>(<span style=color:#a6e22e>dist</span> <span style=color:#f92672>&lt;</span> <span style=color:#a6e22e>radius</span>){
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>if</span>(<span style=color:#a6e22e>magnifier</span>){
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>      <span style=color:#a6e22e>vec2</span> <span style=color:#a6e22e>mouseDist</span> <span style=color:#f92672>=</span> <span style=color:#a6e22e>gl_FragCoord</span>.<span style=color:#a6e22e>xy</span> <span style=color:#f92672>-</span> <span style=color:#a6e22e>mouse</span>;
+</span></span><span style=display:flex><span>      <span style=color:#a6e22e>vec2</span> <span style=color:#a6e22e>newCoords</span> <span style=color:#f92672>=</span> <span style=color:#a6e22e>gl_FragCoord</span>.<span style=color:#a6e22e>xy</span>;
+</span></span><span style=display:flex><span>      <span style=color:#a6e22e>vec2</span> <span style=color:#a6e22e>zoomed</span> <span style=color:#f92672>=</span> (<span style=color:#a6e22e>newCoords</span> <span style=color:#f92672>-</span> (<span style=color:#a6e22e>mouseDist</span> <span style=color:#f92672>*</span> <span style=color:#a6e22e>scale</span>)) <span style=color:#f92672>/</span> <span style=color:#a6e22e>resolution</span>;
+</span></span><span style=display:flex><span>      <span style=color:#a6e22e>zoomed</span> <span style=color:#f92672>=</span> <span style=color:#a6e22e>vec2</span>(<span style=color:#a6e22e>zoomed</span>.<span style=color:#a6e22e>x</span>, <span style=color:#ae81ff>1.0</span> <span style=color:#f92672>-</span> <span style=color:#a6e22e>zoomed</span>.<span style=color:#a6e22e>y</span>);
+</span></span><span style=display:flex><span>      <span style=color:#a6e22e>vec4</span> <span style=color:#a6e22e>zoomedTexel</span> <span style=color:#f92672>=</span> <span style=color:#a6e22e>texture2D</span>(<span style=color:#a6e22e>texture</span>, <span style=color:#a6e22e>zoomed</span>);
+</span></span><span style=display:flex><span>      <span style=color:#a6e22e>zoomedTexel</span> <span style=color:#f92672>=</span> <span style=color:#a6e22e>changeBrightness</span>(<span style=color:#a6e22e>zoomedTexel</span>);
+</span></span><span style=display:flex><span>      <span style=color:#a6e22e>gl_FragColor</span> <span style=color:#f92672>=</span> <span style=color:#a6e22e>zoomedTexel</span>;
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>    }
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>else</span> <span style=color:#66d9ef>if</span>(<span style=color:#a6e22e>region</span>){
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>      <span style=color:#a6e22e>vec2</span> <span style=color:#a6e22e>newCoords</span> <span style=color:#f92672>=</span> <span style=color:#a6e22e>gl_FragCoord</span>.<span style=color:#a6e22e>xy</span>;
+</span></span><span style=display:flex><span>      <span style=color:#a6e22e>vec2</span> <span style=color:#a6e22e>region</span> <span style=color:#f92672>=</span> <span style=color:#a6e22e>newCoords</span> <span style=color:#f92672>/</span> <span style=color:#a6e22e>resolution</span>;
+</span></span><span style=display:flex><span>      <span style=color:#a6e22e>vec4</span> <span style=color:#a6e22e>regionTexel</span> <span style=color:#f92672>=</span> <span style=color:#a6e22e>texture2D</span>(<span style=color:#a6e22e>texture</span>, <span style=color:#a6e22e>region</span>);
+</span></span><span style=display:flex><span>      <span style=color:#a6e22e>regionTexel</span> <span style=color:#f92672>=</span> <span style=color:#a6e22e>applyKernel</span>();
+</span></span><span style=display:flex><span>      <span style=color:#a6e22e>regionTexel</span> <span style=color:#f92672>=</span> <span style=color:#a6e22e>changeBrightness</span>(<span style=color:#a6e22e>regionTexel</span>);
+</span></span><span style=display:flex><span>      <span style=color:#a6e22e>gl_FragColor</span> <span style=color:#f92672>=</span> <span style=color:#a6e22e>regionTexel</span>;
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>    }
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>else</span>{
+</span></span><span style=display:flex><span>      <span style=color:#a6e22e>gl_FragColor</span> <span style=color:#f92672>=</span> <span style=color:#a6e22e>texel</span>;
+</span></span><span style=display:flex><span>    }
+</span></span><span style=display:flex><span>  }
+</span></span><span style=display:flex><span>  <span style=color:#66d9ef>else</span>{
+</span></span><span style=display:flex><span>    <span style=color:#a6e22e>gl_FragColor</span> <span style=color:#f92672>=</span> <span style=color:#a6e22e>texel</span>;
+</span></span><span style=display:flex><span>  }
+</span></span></code></pre></div></div></details><details><summary>BRIGHT</summary><div class=markdown-inner><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-js data-lang=js><span style=display:flex><span><span style=color:#66d9ef>float</span> <span style=color:#a6e22e>luma</span>(<span style=color:#a6e22e>vec3</span> <span style=color:#a6e22e>texel</span>){
+</span></span><span style=display:flex><span>  <span style=color:#66d9ef>return</span> <span style=color:#ae81ff>0.299</span> <span style=color:#f92672>*</span> <span style=color:#a6e22e>texel</span>.<span style=color:#a6e22e>r</span> <span style=color:#f92672>+</span> <span style=color:#ae81ff>0.587</span> <span style=color:#f92672>*</span> <span style=color:#a6e22e>texel</span>.<span style=color:#a6e22e>g</span> <span style=color:#f92672>+</span> <span style=color:#ae81ff>0.114</span> <span style=color:#f92672>*</span> <span style=color:#a6e22e>texel</span>.<span style=color:#a6e22e>b</span>;
+</span></span><span style=display:flex><span>}
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#66d9ef>float</span> <span style=color:#a6e22e>hsv</span>(<span style=color:#a6e22e>vec3</span> <span style=color:#a6e22e>texel</span>){
+</span></span><span style=display:flex><span>  <span style=color:#66d9ef>return</span> <span style=color:#a6e22e>max</span>(<span style=color:#a6e22e>max</span>(<span style=color:#a6e22e>texel</span>.<span style=color:#a6e22e>r</span>, <span style=color:#a6e22e>texel</span>.<span style=color:#a6e22e>g</span>), <span style=color:#a6e22e>texel</span>.<span style=color:#a6e22e>b</span>);
+</span></span><span style=display:flex><span>}
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#66d9ef>float</span> <span style=color:#a6e22e>hsl</span>(<span style=color:#a6e22e>vec3</span> <span style=color:#a6e22e>texel</span>){
+</span></span><span style=display:flex><span>  <span style=color:#66d9ef>float</span> <span style=color:#a6e22e>maxColor</span> <span style=color:#f92672>=</span> <span style=color:#a6e22e>max</span>(<span style=color:#a6e22e>max</span>(<span style=color:#a6e22e>texel</span>.<span style=color:#a6e22e>r</span>, <span style=color:#a6e22e>texel</span>.<span style=color:#a6e22e>g</span>), <span style=color:#a6e22e>texel</span>.<span style=color:#a6e22e>b</span>);
+</span></span><span style=display:flex><span>  <span style=color:#66d9ef>float</span> <span style=color:#a6e22e>minColor</span> <span style=color:#f92672>=</span> <span style=color:#a6e22e>min</span>(<span style=color:#a6e22e>min</span>(<span style=color:#a6e22e>texel</span>.<span style=color:#a6e22e>r</span>, <span style=color:#a6e22e>texel</span>.<span style=color:#a6e22e>g</span>), <span style=color:#a6e22e>texel</span>.<span style=color:#a6e22e>b</span>);
+</span></span><span style=display:flex><span>  <span style=color:#66d9ef>return</span> (<span style=color:#a6e22e>maxColor</span> <span style=color:#f92672>+</span> <span style=color:#a6e22e>minColor</span>)<span style=color:#f92672>/</span><span style=color:#ae81ff>2.0</span>;
+</span></span><span style=display:flex><span>}
+</span></span></code></pre></div></div></details></p><iframe id=imageProcess style=width:700px;height:700px;border:0 srcdoc="
+        <!DOCTYPE html>
+        <html>
+          <head>
+            <script src=https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.4.2/p5.min.js></script>
+            <script src=https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.4.2/addons/p5.sound.min.js></script>
+             <script src=https://cdn.jsdelivr.net/gh/VisualComputing/p5.treegl/p5.treegl.js></script> 
+             <script src=https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.4.2/p5.min.js></script> 
+            
+            
+            
+            <script src=/showcase/sketches/imageProcess.js></script>
+            <style>
+              html, body {
+                margin: 0;
+                border: 0;
+                overflow: hidden;
+              }
+            </style>
+            <div id=histogram></div>
+          </head>
+          <body>
+          </body>
+        </html>
+      "></iframe></article><footer class=book-footer><div class="flex flex-wrap justify-between"><div><a class="flex align-center" href=https://github.com/Nzone56/showcase/commit/abca9839b03c0d0fa0740fe030e731ed9e24c9ca title='Last modified by nzone56 | November 27, 2022' target=_blank rel=noopener><img src=/showcase/svg/calendar.svg class=book-icon alt=Calendar>
+<span>November 27, 2022</span></a></div></div><script>(function(){function e(e){const t=window.getSelection(),n=document.createRange();n.selectNodeContents(e),t.removeAllRanges(),t.addRange(n)}document.querySelectorAll("pre code").forEach(t=>{t.addEventListener("click",function(){e(t.parentElement),navigator.clipboard&&navigator.clipboard.writeText(t.parentElement.textContent)})})})()</script></footer><div class=book-comments></div><label for=menu-control class="hidden book-menu-overlay"></label></div><aside class=book-toc><div class=book-toc-content><nav id=TableOfContents><ul><li><a href=#image-processing>Image Processing</a><ul><li><a href=#kernel>Kernel</a></li><li><a href=#convolution>Convolution</a></li><li><a href=#kernels>Kernels</a></li><li><a href=#results>Results</a></li></ul></li></ul></nav></div></aside></main></body></html>
