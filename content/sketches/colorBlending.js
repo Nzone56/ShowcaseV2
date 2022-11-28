@@ -17,7 +17,7 @@ function draw() {
   
   background(0);
   color1 = colorPicker1.color();
-  beginShape(QUADS);
+  beginShape();
   noStroke();
   fill(color1)
   vertex(-170, -180);
@@ -28,7 +28,7 @@ function draw() {
   
   
   color2 = colorPicker2.color();
-  beginShape(QUADS);
+  beginShape();
   noStroke();
   fill(color2)
   vertex(20, -180);
@@ -43,7 +43,7 @@ function draw() {
   
   
   fill(v3.x/255,v3.y/255,v3.z/255)
-  beginShape(QUADS);
+  beginShape();
   vertex(-75, 20);
   vertex(-75, 160);
   vertex(65, 160);
