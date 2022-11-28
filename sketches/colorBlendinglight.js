@@ -2,8 +2,7 @@ let colorPicker1;
 let colorPicker2;
 
 function setup() {
-   // shaders require WEBGL mode to work
-    createCanvas(400, 400, WEBGL);
+    createCanvas(400, 400);
     color1 = color(55,58,164);
     color2 = color(200,0,255);
     colorPicker1 = createColorPicker(color1);
@@ -22,10 +21,10 @@ function draw() {
   beginShape(QUADS);
   noStroke();
   fill(color1)
-  vertex(-170, -180);
-  vertex(-170, -40);
-  vertex(-30, -40);
-  vertex(-30, -180);
+  vertex(30, 20);
+  vertex(30, 160);
+  vertex(170, 160);
+  vertex(170, 20);
   endShape();
   
   
@@ -33,10 +32,10 @@ function draw() {
   beginShape(QUADS);
   noStroke();
   fill(color2)
-  vertex(20, -180);
-  vertex(20, -40);
-  vertex(160, -40);
-  vertex(160, -180);
+  vertex(220, 20);
+  vertex(220, 160);
+  vertex(360, 160);
+  vertex(360, 20);
   endShape();
   print(color1)
   v1 = createVector(red(color1), green(color1), blue(color1))
@@ -46,10 +45,10 @@ function draw() {
   
   fill(v3.x/255,v3.y/255,v3.z/255, lightSlider.value())
   beginShape(QUADS);
-  vertex(-75, 20);
-  vertex(-75, 160);
-  vertex(65, 160);
-  vertex(65, 20);
+  vertex(125, 220);
+  vertex(125, 360);
+  vertex(265, 360);
+  vertex(265, 220);
   endShape();
   
 }
