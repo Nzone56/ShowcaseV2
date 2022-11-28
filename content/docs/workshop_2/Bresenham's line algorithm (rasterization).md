@@ -6,4 +6,5 @@ While algorithms such as Wu's algorithm are also frequently used in modern compu
 
 The label "Bresenham" is used today for a family of algorithms extending or modifying Bresenham's original algorithm.
 
-{{< p5-iframe sketch="/showcase/sketches/algo.js"  width="735" height="600"  >}}
+{{< p5-iframe sketch="/showcase/sketches/algo.js"
+ width="735" height="600"  >}}
