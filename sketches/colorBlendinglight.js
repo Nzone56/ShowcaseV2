@@ -18,7 +18,7 @@ function draw() {
   
   background(0);
   color1 = colorPicker1.color();
-  beginShape(QUADS);
+  beginShape();
   noStroke();
   fill(color1)
   vertex(30, 20);
@@ -29,7 +29,7 @@ function draw() {
   
   
   color2 = colorPicker2.color();
-  beginShape(QUADS);
+  beginShape();
   noStroke();
   fill(color2)
   vertex(220, 20);
@@ -44,7 +44,7 @@ function draw() {
   
   
   fill(v3.x/255,v3.y/255,v3.z/255, lightSlider.value())
-  beginShape(QUADS);
+  beginShape();
   vertex(125, 220);
   vertex(125, 360);
   vertex(265, 360);
