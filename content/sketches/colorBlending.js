@@ -9,9 +9,7 @@ function setup() {
     colorPicker1.position(10, 10);  
     colorPicker2 = createColorPicker(color2);
     colorPicker2.position(200, 10);
-  
-    lightSlider = createSlider(0, 255, 255, 1);
-    lightSlider.position(130, 180);
+
 }
 
 function draw() {
@@ -41,7 +39,7 @@ function draw() {
   v3 = p5.Vector.mult(v1,v2)
   
   
-  fill(v3.x/255,v3.y/255,v3.z/255, lightSlider.value())
+  fill(v3.x/255,v3.y/255,v3.z/255)
   beginShape();
   vertex(125, 220);
   vertex(125, 360);
