@@ -9,6 +9,9 @@ function setup() {
     colorPicker1.position(10, 10);  
     colorPicker2 = createColorPicker(color2);
     colorPicker2.position(200, 10);
+  
+    lightSlider = createSlider(0, 255, 255, 1);
+    lightSlider.position(130, 180);
 }
 
 function draw() {
@@ -38,9 +41,9 @@ function draw() {
   v1 = createVector(red(color1), green(color1), blue(color1))
   v2 = createVector(red(color2), green(color2), blue(color2))
   v3 = p5.Vector.mult(v1,v2)
+    
   
-  
-  fill(v3.x/255,v3.y/255,v3.z/255)
+  fill(v3.x/255,v3.y/255,v3.z/255, lightSlider.value())
   beginShape();
   vertex(125, 220);
   vertex(125, 360);
