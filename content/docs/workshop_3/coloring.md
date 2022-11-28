@@ -57,13 +57,13 @@ function setColor(){
     b = color(0,0,255);
   }
 }
-    
+```
   
 {{< /details >}}
 {{< p5-iframe sketch="/showcase/sketches/colorModel.js" width="400" height="400" >}}
 
 
-##Color Blending
+# Color Blending
 
 ## Explicación
 
@@ -125,13 +125,13 @@ function draw() {
   endShape();
   
 }
-    
+   ``` 
   
 {{< /details >}}
 {{< p5-iframe sketch="/showcase/sketches/colorBlending.js" width="400" height="400" >}}
 
 
-##Color Blending With brightness
+# Color Blending With brightness
 
 ## Explicación
 
@@ -193,7 +193,7 @@ function draw() {
   endShape();
   
 }
-    
+  ```  
   
 {{< /details >}}
-{{< p5-iframe sketch="/showcase/sketches/colorBlending.js" width="400" height="400" >}} 
+{{< p5-iframe sketch="/showcase/sketches/colorBlendinglight.js" width="400" height="400" >}} 
