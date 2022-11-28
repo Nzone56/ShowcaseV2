@@ -2,8 +2,8 @@ let colorPicker1;
 let colorPicker2;
 
 function setup() {
-   // shaders require WEBGL mode to work
-    createCanvas(400, 400, WEBGL);
+   
+    createCanvas(400, 400);
     color1 = color(55,58,164);
     color2 = color(200,0,255);
     colorPicker1 = createColorPicker(color1);
