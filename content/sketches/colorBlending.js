@@ -41,7 +41,6 @@ function draw() {
   v2 = createVector(red(color2), green(color2), blue(color2))
   v3 = p5.Vector.mult(v1,v2)
   
-  print(v3.x/255,v3.y/255,v3.z/255)
   
   fill(v3.x/255,v3.y/255,v3.z/255)
   beginShape(QUADS);
